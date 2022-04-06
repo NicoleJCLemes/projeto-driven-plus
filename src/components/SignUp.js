@@ -1,17 +1,18 @@
 import Form from "../style/Form";
 import Button from "../style/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
 import axios from 'axios';
-import UserContext from "../contexts/UserContext";
 import { ThreeDots } from "react-loader-spinner";
+import { useState } from "react";
 
 function SignUp() {
 
     const navigate = useNavigate();
-    const context = useContext(UserContext);
     const [isLoading, setIsLoading] = useState(false);
-    const {email, name, cpf, password, setEmail, setName, setCpf, setPassword} = context
+    const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
+    const [cpf, setCpf] = useState('');
+    const [password, setPassword] = useState('');
 
     function signUp(e) {
         e.preventDefault();
@@ -23,7 +24,6 @@ function SignUp() {
             cpf,
             password
         })
-        console.log(email, name, cpf, password)
         promise.then((response) => {
             console.log(response.data);
             navigate('/')

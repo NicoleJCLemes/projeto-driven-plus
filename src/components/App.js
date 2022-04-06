@@ -6,17 +6,16 @@ import Subscriptions from './Subscriptions';
 import ChosenPlan from './ChosenPlan';
 import GlobalStyle from '../GlobalStyle';
 import UserContext from '../contexts/UserContext';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
-    const [token, setToken] = useState('');
-    const [email, setEmail] = useState('');
-    const [name, setName] = useState('');
-    const [cpf, setCpf] = useState('');
-    const [password, setPassword] = useState('');
+
+    const [apiData, setApiData] = useState('');
+    const [token, setToken] = useState(null);
+    useEffect(() => setToken(localStorage.getItem("token")), [])
 
     return(
-        <UserContext.Provider value={{token, setToken, email, setEmail, name, setName, cpf, setCpf, password, setPassword}}>
+        <UserContext.Provider value={{apiData, setApiData, token, setToken}}>
             <BrowserRouter>
                 <GlobalStyle />
                 <Routes>

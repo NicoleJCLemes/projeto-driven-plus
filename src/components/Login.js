@@ -13,7 +13,9 @@ function Login() {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const context = useContext(UserContext);
-    const {email, setEmail, password, setPassword} = context;
+    const {setApiData} = context;
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     function login(e){
         e.preventDefault();
@@ -26,7 +28,9 @@ function Login() {
         })
 
         promise.then((response) => {
-            console.log(response.data)
+            const {data} = response
+            setApiData(data);
+            localStorage.setItem("token", `${data.token}`);
             navigate('/subscriptions');
         })
         promise.catch(() => alert("Não foi possível realizar o seu login."), setIsLoading(false))

@@ -51,7 +51,6 @@ const GlobalStyle = createGlobalStyle`
     }
     * {
         box-sizing: border-box;
-        font-family: 'Roboto', sans-serif;
         overflow-x: hidden;
     }
     a {
@@ -60,6 +59,7 @@ const GlobalStyle = createGlobalStyle`
     .root {
         background-color: #0E0E13;
         height: 100vh;
+        font-family: 'Roboto', sans-serif;
     }
 `
 export default GlobalStyle;
