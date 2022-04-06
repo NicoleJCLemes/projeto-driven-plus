@@ -39,5 +39,9 @@ const Form = styled.form`
         height: 14px;
         margin: 49px 38px;
     }
+
+    .opacity {
+        opacity: 0.7;
+    }
 `
 export default Form;

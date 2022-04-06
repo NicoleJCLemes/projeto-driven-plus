@@ -51,12 +51,15 @@ const GlobalStyle = createGlobalStyle`
     }
     * {
         box-sizing: border-box;
-        background-color: #0E0E13;
         font-family: 'Roboto', sans-serif;
         overflow-x: hidden;
     }
     a {
         text-decoration: none;
+    }
+    .root {
+        background-color: #0E0E13;
+        height: 100vh;
     }
 `
 export default GlobalStyle;

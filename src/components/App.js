@@ -9,9 +9,14 @@ import UserContext from '../contexts/UserContext';
 import { useState } from 'react';
 
 function App() {
-    const [token, setToken] = useState('')
+    const [token, setToken] = useState('');
+    const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
+    const [cpf, setCpf] = useState('');
+    const [password, setPassword] = useState('');
+
     return(
-        <UserContext.Provider value={{token, setToken}}>
+        <UserContext.Provider value={{token, setToken, email, setEmail, name, setName, cpf, setCpf, password, setPassword}}>
             <BrowserRouter>
                 <GlobalStyle />
                 <Routes>
