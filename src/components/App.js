@@ -6,13 +6,13 @@ import Subscriptions from './Subscriptions';
 import ChosenPlan from './ChosenPlan';
 import GlobalStyle from '../GlobalStyle';
 import UserContext from '../contexts/UserContext';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 function App() {
 
     const [apiData, setApiData] = useState('');
-    const [token, setToken] = useState(null);
-    useEffect(() => setToken(localStorage.getItem("token")), [])
+    const savedToken = localStorage.getItem("token");
+    const [token, setToken] = useState(savedToken);
 
     return(
         <UserContext.Provider value={{apiData, setApiData, token, setToken}}>

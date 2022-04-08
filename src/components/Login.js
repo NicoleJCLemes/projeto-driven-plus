@@ -13,7 +13,7 @@ function Login() {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const context = useContext(UserContext);
-    const {setApiData} = context;
+    const {setApiData, setToken} = context;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -28,9 +28,10 @@ function Login() {
         })
 
         promise.then((response) => {
-            const {data} = response
-            setApiData(data);
+            const {data} = response;
             localStorage.setItem("token", `${data.token}`);
+            setToken(data.token);
+            setApiData(data);
             navigate('/subscriptions');
         })
         promise.catch(() => alert("Não foi possível realizar o seu login."), setIsLoading(false))

@@ -1,14 +1,16 @@
 import styled from 'styled-components';
-//import { useNavigate } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
 
 function Subscriptions() {
 
     const context = useContext(UserContext);
     const {token} = context;
+
     const [planData, setPlanData] = useState([]);
+
     const URL = "https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships";
     const promise = axios.get(URL, {
         headers: {
@@ -25,10 +27,12 @@ function Subscriptions() {
             <h1>Escolha seu Plano</h1>
             {planData.map((planData) => {
                 return (
-                    <div className='plan-options' key={planData.id}>
-                        <img src={planData.image} alt="imagem do plano" />
-                        <p>R$ {planData.price}</p>
-                    </div>
+                    <Link to={`/subscriptions/${planData.id}`} key={planData.id}>
+                        <div className='plan-options'>
+                            <img src={planData.image} alt="imagem do plano" />
+                            <p>R$ {planData.price}</p>
+                        </div>
+                    </Link>
                 )
             })}
         </Div>
