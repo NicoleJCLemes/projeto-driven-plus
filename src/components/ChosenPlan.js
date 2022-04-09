@@ -1,5 +1,4 @@
 import { Link, useParams } from "react-router-dom";
-import plan from '../assets/plan.png';
 import UserContext from "../contexts/UserContext";
 import { useContext, useState, useEffect } from "react";
 import axios from 'axios';
@@ -12,7 +11,7 @@ function ChosenPlan() {
 
     
     const context = useContext(UserContext);
-    const {token, setMembershipId, membershipId, setPlanInfo} = context;
+    const {token, setMembershipId, membershipId, setPlanInfo, planInfo} = context;
     const {planID} = useParams();
     
     const [perks, setPerks] = useState([]);
@@ -40,7 +39,7 @@ function ChosenPlan() {
         promise.then((response) => {
             const priceData = response.data.price;
             const planData = response.data.perks;
-            setPlanInfo(response.data)
+            setPlanInfo(response.data);
             setPerks(planData);
             setPrice(priceData);
             setMembershipId(response.data.id);
@@ -56,8 +55,8 @@ function ChosenPlan() {
         <>
             <Header>
                 <Link to="/subscriptions"><ion-icon name="arrow-back"></ion-icon></Link>
-                <img src={plan} alt="logo do plano"/>
-                <H1>Driven Plus</H1>
+                <img src={planInfo.image} alt="logo do plano"/>
+                <H1>{planInfo.name}</H1>
             </Header>
             <Main>
                 <div className="main">
@@ -89,7 +88,7 @@ function ChosenPlan() {
                     <Button type="submit">ASSINAR</Button>
                 </Form>
             </Main>
-            <ConfirmationScreen confirm={confirm} price={price} clientData={clientData} membershipId={membershipId} setConfirm={setConfirm} />
+            <ConfirmationScreen confirm={confirm} price={price} clientData={clientData} membershipId={membershipId} setPlanInfo={setPlanInfo} setConfirm={setConfirm} />
         </>
     )
 }

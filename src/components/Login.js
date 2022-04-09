@@ -13,7 +13,7 @@ function Login() {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const context = useContext(UserContext);
-    const {setApiData, setToken} = context;
+    const {setApiData, setToken, setPlanInfo} = context;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -29,6 +29,7 @@ function Login() {
 
         function whichPage(data) {
             if (data.membership === null) {
+                //setPlanInfo(data.membership);   
                 navigate('/subscriptions');
             } else {navigate('/home')}
         }
@@ -36,6 +37,7 @@ function Login() {
         promise.then((response) => {
             const {data} = response;
             localStorage.setItem("token", `${data.token}`);
+            setPlanInfo(data)
             setToken(data.token);
             setApiData(data);
             whichPage(data);

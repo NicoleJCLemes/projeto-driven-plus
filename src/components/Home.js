@@ -9,7 +9,7 @@ function Home() {
 
     const {apiData, token, planInfo} = useContext(UserContext);
     console.log(planInfo);
-    const perks = planInfo.perks;
+    const {perks, image} = planInfo.membership;
     console.log(perks);
     const navigate = useNavigate();
 
@@ -23,10 +23,12 @@ function Home() {
         promise.then(() => navigate("/subscriptions"))
     }
 
-    return (
+    return planInfo === undefined ? (
+        <p>Loading...</p>
+    ) : (
         <>
         <Header>
-            <img src={planInfo.image} alt="logo" />
+            <img src={image} alt="logo" />
             <ion-icon name="person-circle-sharp"></ion-icon>
         </Header>
         <Main>

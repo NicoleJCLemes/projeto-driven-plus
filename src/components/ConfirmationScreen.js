@@ -7,7 +7,7 @@ import styled from 'styled-components';
 function ConfirmationScreen(props) {
 
     const {confirm, price, clientData, membershipId, setConfirm} = props;
-    const {token} = useContext(UserContext);
+    const {token, planInfo} = useContext(UserContext);
     const body = {membershipId, ...clientData};
     const navigate = useNavigate();
 
@@ -26,10 +26,10 @@ function ConfirmationScreen(props) {
             <Div className="confirmation">
                 <ion-icon onClick={() => setConfirm(false)} name="close-circle"></ion-icon>
                 <div className="box">
-                    <p>Tem certeza que deseja assinar o plano Driven Plus (R$ {price})?</p>
+                    <p>Tem certeza que deseja assinar o plano {planInfo.name} (R$ {price})?</p>
                     <div className="buttons">
                         <button onClick={() => setConfirm(false)}>Não</button>
-                        <button onClick={sendData}>Sim</button>
+                        <button onClick={sendData}>SIM</button>
                     </div>
                 </div>
             </Div>
