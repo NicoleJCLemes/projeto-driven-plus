@@ -7,9 +7,9 @@ import axios from "axios";
 
 function Home() {
 
-    const {apiData, token} = useContext(UserContext);
+    const {apiData, token, planInfo} = useContext(UserContext);
     console.log(apiData);
-    const perks = apiData.membership.perks;
+    const perks = planInfo.perks;
     console.log(perks);
     const navigate = useNavigate();
 
@@ -36,7 +36,7 @@ function Home() {
     return (
         <>
         <Header>
-            <img src={apiData.membership.image} alt="logo" />
+            <img src={planInfo.image} alt="logo" />
             <ion-icon name="person-circle-sharp"></ion-icon>
         </Header>
         <Main>

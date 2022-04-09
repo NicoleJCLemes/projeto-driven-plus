@@ -12,10 +12,10 @@ function ChosenPlan() {
 
     
     const context = useContext(UserContext);
-    const {token, setMembershipId, membershipId} = context;
+    const {token, setMembershipId, membershipId, setPlanInfo} = context;
     const {planID} = useParams();
     
-    const [planInfo, setPlanInfo] = useState([]);
+    const [perks, setPerks] = useState([]);
     const [price, setPrice] = useState("");
     const [confirm, setConfirm] = useState(false);
     const [cardName, setCardName] = useState("");
@@ -40,7 +40,8 @@ function ChosenPlan() {
         promise.then((response) => {
             const priceData = response.data.price;
             const planData = response.data.perks;
-            setPlanInfo(planData);
+            setPlanInfo(response.data)
+            setPerks(planData);
             setPrice(priceData);
             setMembershipId(response.data.id);
         }); // eslint-disable-next-line
@@ -65,7 +66,7 @@ function ChosenPlan() {
                         <h2>Benefícios:</h2>
                     </div>
                     <ol className="benefits">
-                        {planInfo.map((info) => {
+                        {perks.map((info) => {
                             const {id, title} = info
                             return (
                                 <li key={id}>{id}. {title}</li>
