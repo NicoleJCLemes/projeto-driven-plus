@@ -42,7 +42,7 @@ function SignUp() {
                 <Input type='email' placeholder='E-mail' required onChange={(e) => setEmail(e.target.value)} />
                 <Input type='password' placeholder='Senha' required onChange={(e) => setPassword(e.target.value)} />
                 <Button type="submit">CADASTRAR</Button>
-                <Link to="/"><p>Já possuí uma conta? Entre</p></Link>
+                <Link to="/"><p>Já possui uma conta? Entre</p></Link>
             </Form>
         </Div>
     ) : (

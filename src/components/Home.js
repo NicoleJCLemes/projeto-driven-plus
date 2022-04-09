@@ -8,20 +8,10 @@ import axios from "axios";
 function Home() {
 
     const {apiData, token, planInfo} = useContext(UserContext);
-    console.log(apiData);
+    console.log(planInfo);
     const perks = planInfo.perks;
     console.log(perks);
     const navigate = useNavigate();
-
-    /*function changePlan() {
-        const URL = "https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions";
-        const promise = axios.post(URL, body, {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        })
-        promise.then(navigate("/subscriptions"))
-    }*/
 
     function deletePlan() {
         const URL = `https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/`;

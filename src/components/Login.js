@@ -50,7 +50,7 @@ function Login() {
                 <Input type='email' placeholder='E-mail' required onChange={(e) => setEmail(e.target.value)} />
                 <Input type='password' placeholder='Senha' required onChange={(e) => setPassword(e.target.value)} />
                 <Button type='submit'>ENTRAR</Button>
-                <Link to="/sign-up"><p>Não possuí uma conta? Cadastre-se</p></Link>
+                <Link to="/sign-up"><p>Não possui uma conta? Cadastre-se</p></Link>
             </Form>
         </Div>
     ) : (
