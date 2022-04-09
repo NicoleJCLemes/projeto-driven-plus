@@ -7,7 +7,7 @@ import styled from 'styled-components';
 function ConfirmationScreen(props) {
 
     const {confirm, price, clientData, membershipId, setConfirm} = props;
-    const {token, planInfo} = useContext(UserContext);
+    const {token, planInfo, setPlanInfo} = useContext(UserContext);
     const body = {membershipId, ...clientData};
     const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ function ConfirmationScreen(props) {
                 "Authorization": `Bearer ${token}`
             }
         })
-        promise.then(() => navigate('/home'));
+        promise.then((response) => {setPlanInfo(response.data); navigate('/home')});
         promise.catch(() => alert('Não foi possível realizar sua assinatura'));
     }
 
