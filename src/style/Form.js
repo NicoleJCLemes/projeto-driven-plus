@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 const Form = styled.form`
-    padding: 38px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,10 +8,9 @@ const Form = styled.form`
     input {
         background: #FFFFFF;
         border-radius: 8px;
-        width: 299px;
+        width: 100%;
         height: 52px;
         border: none;
-        margin-bottom: 16px;
         padding-left: 14px;
         font-size: 15px;
 
@@ -34,7 +32,7 @@ const Form = styled.form`
         margin-top: 24px;
     }
 
-    div {
+    .dark-space {
         width: 299px;
         height: 14px;
         margin: 49px 38px;
@@ -43,5 +41,16 @@ const Form = styled.form`
     .opacity {
         opacity: 0.7;
     }
+
+    div {
+        display: flex;
+        justify-content: space-between;
+
+        input {
+            width: 48.8%;
+            margin-bottom: 4px;
+        }
+    }
+
 `
 export default Form;

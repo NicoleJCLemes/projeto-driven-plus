@@ -34,9 +34,6 @@ const GlobalStyle = createGlobalStyle`
     body {
         line-height: 1;
     }
-    ol, ul {
-        list-style: none;
-    }
     blockquote, q {
         quotes: none;
     }
@@ -55,6 +52,7 @@ const GlobalStyle = createGlobalStyle`
     }
     a {
         text-decoration: none;
+        color: #FFFFFF;
     }
     .root {
         background-color: #0E0E13;

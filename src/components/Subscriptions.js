@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
@@ -11,16 +11,19 @@ function Subscriptions() {
 
     const [planData, setPlanData] = useState([]);
 
-    const URL = "https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships";
-    const promise = axios.get(URL, {
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    })
-    promise.then((response) => {
-        const {data} = response;
-        setPlanData(data);
-    })
+    useEffect(()=> {
+        const URL = "https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships";
+        const promise = axios.get(URL, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+        promise.then((response) => {
+            const {data} = response;
+            setPlanData(data);
+        }) // eslint-disable-next-line
+    }, [])
+
 
     return (
         <Div>

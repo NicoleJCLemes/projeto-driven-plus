@@ -13,9 +13,10 @@ function App() {
     const [apiData, setApiData] = useState('');
     const savedToken = localStorage.getItem("token");
     const [token, setToken] = useState(savedToken);
+    const [membershipId, setMembershipId] = useState(null);
 
     return(
-        <UserContext.Provider value={{apiData, setApiData, token, setToken}}>
+        <UserContext.Provider value={{apiData, setApiData, token, setToken, membershipId, setMembershipId}}>
             <BrowserRouter>
                 <GlobalStyle />
                 <Routes>

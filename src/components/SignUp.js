@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { ThreeDots } from "react-loader-spinner";
 import { useState } from "react";
+import styled from 'styled-components';
 
 function SignUp() {
 
@@ -33,28 +34,40 @@ function SignUp() {
 
 
     return isLoading === false ? (
-        <Form onSubmit={signUp}>
-            <div></div>
-            <input type='text' placeholder='Nome' required onChange={(e) => setName(e.target.value)} />
-            <input type='number' placeholder='CPF' required onChange={(e) => setCpf(e.target.value)} />
-            <input type='email' placeholder='E-mail' required onChange={(e) => setEmail(e.target.value)} />
-            <input type='password' placeholder='Senha' required onChange={(e) => setPassword(e.target.value)} />
-            <Button type="submit">CADASTRAR</Button>
-            <Link to="/"><p>Já possuí uma conta? Entre</p></Link>
-        </Form>
+        <Div>
+            <Form onSubmit={signUp}>
+                <div className="dark-space"></div>
+                <Input type='text' placeholder='Nome' required onChange={(e) => setName(e.target.value)} />
+                <Input type='number' placeholder='CPF' required onChange={(e) => setCpf(e.target.value)} />
+                <Input type='email' placeholder='E-mail' required onChange={(e) => setEmail(e.target.value)} />
+                <Input type='password' placeholder='Senha' required onChange={(e) => setPassword(e.target.value)} />
+                <Button type="submit">CADASTRAR</Button>
+                <Link to="/"><p>Já possuí uma conta? Entre</p></Link>
+            </Form>
+        </Div>
     ) : (
-        <Form>
-            <div></div>
-            <input className="opacity" type='text' placeholder='Nome' disabled/>
-            <input className="opacity" type='number' placeholder='CPF' disabled/>
-            <input className="opacity" type='email' placeholder='E-mail' disabled/>
-            <input className="opacity" type='password' placeholder='Senha' disabled/>
-            <Button disabled type="submit">
-                <ThreeDots color="#FFFFFF" height={13} width={298} />
-            </Button>
-            <p>Já possui uma conta? Entre</p>
-        </Form>
+        <Div>
+            <Form>
+                <div></div>
+                <Input className="opacity" type='text' placeholder='Nome' disabled/>
+                <Input className="opacity" type='number' placeholder='CPF' disabled/>
+                <Input className="opacity" type='email' placeholder='E-mail' disabled/>
+                <Input className="opacity" type='password' placeholder='Senha' disabled/>
+                <Button disabled type="submit">
+                    <ThreeDots color="#FFFFFF" height={13} width={298} />
+                </Button>
+                <p>Já possui uma conta? Entre</p>
+            </Form>
+        </Div>
     )
 }
+
+const Div = styled.div`
+    padding: 0 38px;
+`
+
+const Input = styled.input`
+    margin-bottom: 16px;
+`
 
 export default SignUp;

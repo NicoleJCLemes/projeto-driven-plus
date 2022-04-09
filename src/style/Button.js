@@ -10,7 +10,7 @@ const Button = styled.button`
     font-size: 14px;
     line-height: 16px;
     color: #FFFFFF;
-    margin-top: 26px;
+    margin-top: 8px;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -1,38 +1,60 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import plan from '../assets/plan.png';
 import UserContext from "../contexts/UserContext";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import axios from 'axios';
 import styled from 'styled-components';
+import Form from "../style/Form";
+import Button from "../style/Button";
+import ConfirmationScreen from "./ConfirmationScreen";
 
 function ChosenPlan() {
 
-    const {planID} = useParams();
-
+    
     const context = useContext(UserContext);
-    const {token} = context;
-
-    const URL = `https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships/${planID}`
-    const promise = axios.get(URL, {
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    })
-
+    const {token, setMembershipId, membershipId} = context;
+    const {planID} = useParams();
+    
     const [planInfo, setPlanInfo] = useState([]);
     const [price, setPrice] = useState("");
+    const [confirm, setConfirm] = useState(false);
+    const [cardName, setCardName] = useState("");
+    const [cardNumber, setCardNumber] = useState("");
+    const [securityNumber, setSecurityNumber] = useState("");
+    const [expirationDate, setExpirationDate] = useState("");
+    
+    const clientData = {
+        cardName,
+        cardNumber,
+        securityNumber,
+        expirationDate
+    }
+    
+    useEffect(() => {
+        const URL = `https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships/${planID}`
+        const promise = axios.get(URL, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+        promise.then((response) => {
+            const priceData = response.data.price;
+            const planData = response.data.perks;
+            setPlanInfo(planData);
+            setPrice(priceData);
+            setMembershipId(response.data.id);
+        }); // eslint-disable-next-line
+    }, [])
 
-    promise.then((response) => {
-        const priceData = response.data.price
-        const planData = response.data.perks;
-        setPlanInfo(planData);
-        setPrice(priceData);
-    });
+    function sign(e) {
+        e.preventDefault();
+        setConfirm(true);
+    }
 
     return (
         <>
             <Header>
-                <ion-icon name="arrow-back"></ion-icon>
+                <Link to="/subscriptions"><ion-icon name="arrow-back"></ion-icon></Link>
                 <img src={plan} alt="logo do plano"/>
                 <H1>Driven Plus</H1>
             </Header>
@@ -42,21 +64,31 @@ function ChosenPlan() {
                         <ion-icon name="reader-outline"></ion-icon>
                         <h2>Benefícios:</h2>
                     </div>
-                    <ul className="benefits">
+                    <ol className="benefits">
                         {planInfo.map((info) => {
                             const {id, title} = info
                             return (
                                 <li key={id}>{id}. {title}</li>
                             )
                         } )}
-                    </ul>
+                    </ol>
                     <div className="benefits-header">
                         <ion-icon name="cash-outline"></ion-icon>
                         <h2>Preço:</h2>
                     </div>
                         <p>R$ {price} cobrados mensalmente</p>
                 </div>
+                <Form onSubmit={sign}>
+                    <Input type="text" placeholder="Nome impresso no cartão" required value={cardName} onChange={(e) => setCardName(e.target.value)} />
+                    <Input type="number" placeholder="Digitos do cartão" required value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} />
+                    <div className="inputs">
+                        <Input type="number" placeholder="Código de segurança" required value={securityNumber} onChange={(e) => setSecurityNumber(e.target.value)} />
+                        <Input type="text" placeholder="Validade" required value={expirationDate} onChange={(e) => setExpirationDate(e.target.value)} />
+                    </div>
+                    <Button type="submit">ASSINAR</Button>
+                </Form>
             </Main>
+            <ConfirmationScreen confirm={confirm} price={price} clientData={clientData} membershipId={membershipId} setConfirm={setConfirm} />
         </>
     )
 }
@@ -67,6 +99,17 @@ const H1 = styled.h1`
     line-height: 38px;
     color: #FFFFFF;
 `
+const Input = styled.input`
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 16px;
+
+    &::placeholder{
+        font-size: 14px;
+        line-height: 16px;
+    }
+`
+
 const Header = styled.header`
     display: flex;
     flex-direction: column;
@@ -90,11 +133,12 @@ const Header = styled.header`
 
 const Main = styled.main`
 
-    padding: 22px 40px 34px 40px ;
+    padding: 22px 38px 34px 38px ;
 
     .main {
         display: flex;
         flex-direction: column;
+        margin-bottom: 26px;
     }
 
     h2 {

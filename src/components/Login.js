@@ -27,46 +27,60 @@ function Login() {
             password
         })
 
+        function whichPage(data) {
+            if (data.membership === null) {
+                navigate('/subscriptions');
+            } else {navigate('/home')}
+        }
+
         promise.then((response) => {
             const {data} = response;
             localStorage.setItem("token", `${data.token}`);
             setToken(data.token);
             setApiData(data);
-            navigate('/subscriptions');
+            whichPage(data);
         })
         promise.catch(() => alert("Não foi possível realizar o seu login."), setIsLoading(false))
     }
 
     return isLoading === false ? (
-        <>
+        <Div>
             <Logo src={logo} alt="driven plus" />
             <Form onSubmit={login}>
-                <input type='email' placeholder='E-mail' required onChange={(e) => setEmail(e.target.value)} />
-                <input type='password' placeholder='Senha' required onChange={(e) => setPassword(e.target.value)} />
+                <Input type='email' placeholder='E-mail' required onChange={(e) => setEmail(e.target.value)} />
+                <Input type='password' placeholder='Senha' required onChange={(e) => setPassword(e.target.value)} />
                 <Button type='submit'>ENTRAR</Button>
                 <Link to="/sign-up"><p>Não possuí uma conta? Cadastre-se</p></Link>
             </Form>
-        </>
+        </Div>
     ) : (
-        <>
+        <Div>
             <Logo src={logo} alt="driven plus" />
             <Form>
-                <input className='opacity' type='email' placeholder='E-mail' disabled />
-                <input className='opacity' type='password' placeholder='Senha' disabled />
+                <Input className='opacity' type='email' placeholder='E-mail' disabled />
+                <Input className='opacity' type='password' placeholder='Senha' disabled />
                 <Button type='submit' disabled>
                     <ThreeDots color="#FFFFFF" height={13} width={298} />
                 </Button>
                 <p>Não possuí uma conta? Cadastre-se</p>
             </Form>
-        </>
+        </Div>
     )
 }
 
 const Logo = styled.img`
-    margin: 134px auto 62px auto;
+    margin: 134px 0 62px 0;
     width: 299px;
     height: 49px;
     display: flex;
+`
+
+const Div = styled.div`
+    padding: 0 38px;
+`
+
+const Input = styled.input`
+    margin-bottom: 16px;
 `
 
 export default Login
